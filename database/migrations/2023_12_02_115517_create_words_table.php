@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained('categories');
             $table->string('title');
             $table->text('description');
-            $table->unsignedMediumInteger('count');
+            $table->unsignedMediumInteger('count')->default(0);
             $table->boolean('is_correct')->default(true);
             $table->timestamps();
             $table->softDeletes();
