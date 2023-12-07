@@ -2,6 +2,7 @@
 
 namespace App\Services\Antonym;
 
+use App\Models\User;
 use App\Models\Word;
 use App\Services\BaseService;
 use Illuminate\Validation\ValidationException;
@@ -23,6 +24,15 @@ class CreateAntonym extends BaseService
         $this->validate($data);
 
         $word->antonym_words()->attach($data['antonym_id']);
+
+        $user = User::where('id', auth()->id())->first();
+
+        $method = "create antonym word";
+
+        $user->words()->attach($word->id, [
+            'method' => $method,
+            'created_at' => now(),
+        ]);
 
         return true;
     }

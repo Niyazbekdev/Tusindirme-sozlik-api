@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AntonymWordController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SynonymWordController;
 use App\Http\Controllers\WordController;
@@ -15,7 +16,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('categories.words', WordController::class)->shallow();
-Route::apiResource('words.synonyms', SynonymWordController::class);
-Route::apiResource('words.antonyms', AntonymWordController::class);
+Route::middleware(['auth:sanctum', ])->group(function (){
+
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('categories.words', WordController::class)->shallow();
+    Route::apiResource('words.synonyms', SynonymWordController::class);
+    Route::apiResource('words.antonyms', AntonymWordController::class);
+
+});
+
+Route::middleware(['auth:sanctum', ])->group(function (){
+    Route::apiResource('histories', HistoryController::class);
+});
