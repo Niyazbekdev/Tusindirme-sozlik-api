@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Word;
 use App\Services\Synonym\CreateSynonym;
 use App\Services\Synonym\DeleteSynonym;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class SynonymWordController extends Controller
 {
-    public function index( Word $word): Collection
+    public function index( Word $word): LengthAwarePaginator
     {
-        return $word->synonym_words()->get();
+        return $word->synonym_words()->when($request->serch ?? null, function ($query, $search){
+            $query->search($search);
+        })->paginate($request->limit ?? 10);
     }
 
     public function store(Request $request, Word $word)
