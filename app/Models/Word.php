@@ -14,7 +14,7 @@ class Word extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'is_correct',];
+    protected $fillable = ['category_id', 'title', 'description', 'is_correct',];
 
     public array $translatable = ['title', 'description'];
 

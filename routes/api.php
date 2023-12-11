@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AntonymWordController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExportExcelWordController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ImportExcelWordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SynonymWordController;
 use App\Http\Controllers\WordController;
@@ -22,6 +24,8 @@ Route::middleware(['auth:sanctum', 'ability:SuperAdmin,Admin' ])->group(function
     Route::apiResource('categories.words', WordController::class)->shallow();
     Route::apiResource('words.synonyms', SynonymWordController::class);
     Route::apiResource('words.antonyms', AntonymWordController::class);
+    Route::apiResource('import-excel-words', ImportExcelWordController::class);
+    Route::apiResource('export-excel-words', ExportExcelWordController::class);
 
 });
 
