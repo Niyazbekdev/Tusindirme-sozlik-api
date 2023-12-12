@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('test', [\App\Http\Controllers\TestController::class, 'test']);
+
 Route::middleware(['auth:sanctum', 'ability:SuperAdmin,Admin' ])->group(function (){
 
     Route::apiResource('categories', CategoryController::class);

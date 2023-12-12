@@ -25,7 +25,6 @@ class DeleteSynonym extends BaseService
 
         $word->synonym_words()->detach($data['id']);
 
-
         $user = User::where('id', auth()->id())->first();
 
         $method = "delete synonym";

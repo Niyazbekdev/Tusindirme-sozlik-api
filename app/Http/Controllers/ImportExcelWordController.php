@@ -17,7 +17,9 @@ class ImportExcelWordController extends Controller
                 'Success' => true,
             ]);
         }catch (ValidationException $exception){
-            return $exception->validator->errors()->all();
+            return response()->json([
+                'error' => $exception->validator->errors()->all()
+            ]);
         }
     }
 }

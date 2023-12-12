@@ -42,7 +42,13 @@ class WordController extends Controller
                 'is_correct' => $request->is_correct,
             ]);
             return response()->json([
-                'Succes' => true,
+                'Success' => true,
+                'data' => [
+                    'id'=> $request->id,
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'is_correct' => $request->is_correct,
+                ]
             ]);
         }catch (ValidationException $exception){
             return  $exception->validator->errors()->all();

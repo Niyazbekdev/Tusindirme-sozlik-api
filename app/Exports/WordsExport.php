@@ -26,6 +26,7 @@ class WordsExport implements FromCollection, WithHeadings, WithTitle
             'is_correct',
             'created_at',
             'updated_at',
+            'deleted_at'
         ];
     }
 
