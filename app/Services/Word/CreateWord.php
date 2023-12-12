@@ -13,6 +13,7 @@ class CreateWord extends BaseService
     public function rules(): array
     {
         return [
+            'category_id' => 'required',
             'title' => 'required',
             'description' => 'required',
             'is_correct' => 'nullable',
@@ -22,11 +23,12 @@ class CreateWord extends BaseService
     /**
      * @throws ValidationException
      */
-    public function execute(array $data, Category $category): bool
+    public function execute(array $data): bool
     {
         $this->validate($data);
 
-        $word = $category->words()->create([
+        $word = Word::create([
+            'category_id' => $data['category_id'],
             'title' => $data['title'],
             'description' => $data['description'],
             'is_correct' => $data['is_correct'],

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Word;
 use App\Services\Word\CreateWord;
 use App\Services\Word\DeleteWord;
 use App\Services\Word\UpdateWord;
@@ -12,17 +13,17 @@ use Illuminate\Validation\ValidationException;
 
 class WordController extends Controller
 {
-    public function index(Request $request, Category $category): LengthAwarePaginator
+    public function index(Request $request): LengthAwarePaginator
     {
-        return $category->words()->when($request->serch ?? null, function ($query, $search){
+        return Word::when($request->serch ?? null, function ($query, $search){
             $query->search($search);
         })->paginate($request->limit ?? 10);
     }
 
-    public function store(Request $request, Category $category)
+    public function store(Request $request)
     {
         try {
-            app(CreateWord::class)->execute($request->all(), $category);
+            app(CreateWord::class)->execute($request->all());
             return response()->json([
                 'Success' => true,
             ]);

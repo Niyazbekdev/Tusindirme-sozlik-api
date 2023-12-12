@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\WordImport;
+use App\Services\Word\ImportExcelWord;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\ValidationException;
 
 class ImportExcelWordController extends Controller
 {
     public function store(Request $request): JsonResponse
     {
-
-        $import = new WordImport;
-        Excel::import($import, $request->imports);
-        return response()->json([
-            'Success' => true,
-        ]);
+        try {
+            app(ImportExcelWord::class)->execute($request->all());
+            return response()->json([
+                'Success' => true,
+            ]);
+        }catch (ValidationException $exception){
+            return $exception->validator->errors()->all();
+        }
     }
 }

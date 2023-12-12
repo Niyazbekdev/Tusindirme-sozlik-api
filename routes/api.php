@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum', 'ability:SuperAdmin,Admin' ])->group(function (){
 
     Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('categories.words', WordController::class)->shallow();
+    Route::apiResource('words', WordController::class);
     Route::apiResource('words.synonyms', SynonymWordController::class);
     Route::apiResource('words.antonyms', AntonymWordController::class);
     Route::apiResource('import-excel-words', ImportExcelWordController::class);
