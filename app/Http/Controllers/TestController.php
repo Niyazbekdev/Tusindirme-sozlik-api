@@ -10,6 +10,6 @@ class TestController extends Controller
 {
     public function test()
     {
-       return Carbon::now()->addDays(10);
+
     }
 }
